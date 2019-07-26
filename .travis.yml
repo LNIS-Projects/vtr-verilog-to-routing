@@ -78,7 +78,7 @@ stages:
     if: type != cron
   - name: Build Compatibility
     if: type != cron
-  - name: Coverity Scan
+  - name: Build Coverity
     if: branch = coverity_scan_test && type = cron
 
 jobs:
@@ -171,7 +171,7 @@ jobs:
          - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
       script:
         - ./.github/travis/build.sh
-    - stage: Coverity Scan
+    - stage: Build Coverity
       name: "Coverity Scan"
       env:
         - _COVERITY_URL="https://scan.coverity.com/download/linux64"
