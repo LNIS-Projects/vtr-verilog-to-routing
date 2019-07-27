@@ -22,7 +22,7 @@ start_section "coverity download" "${GREEN}Downloading coverity tool..${NC}"
 mkdir -p ${HOME}/coverity
 cd ${HOME}/coverity
 
-wget ${_COVERITY_URL} --post-data="token=${COVERITY_SCAN_TOKEN}&project=Verilog+to+Routing" -O coverity.tar.gz
+wget --quiet ${_COVERITY_URL} --post-data="token=${COVERITY_SCAN_TOKEN}&project=Verilog+to+Routing" -O coverity.tar.gz
 echo "${_COVERITY_MD5} coverity.tar.gz" | md5sum -c -
 tar xzf coverity.tar.gz
 rm -f coverity.tar.gz
@@ -30,6 +30,7 @@ rm -f coverity.tar.gz
 coverity_dir=$(ls -d cov-analysis-linux64*)
 export PATH="${PATH}:${HOME}/coverity/${coverity_dir}/bin"
 which cov-build
+cov-configure --compiler `which ${CC}`
 
 cd ${build_root}
 
